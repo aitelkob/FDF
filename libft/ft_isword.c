@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_isword.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 04:45:05 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/04/04 22:48:17 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/04/19 15:07:53 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/19 15:15:51 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int		ft_isword(char	const *s, size_t i, char c)
 {
-	unsigned char *str1;
-	unsigned char *str2;
-
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (n--)
-	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		else
-		{
-			str1++;
-			str2++;
-		}
-	}
+	if (i == 0 && s[i] != c)
+		return (1);
+	if (s[i] != c && s[i - 1] == c)
+		return (1);
 	return (0);
 }

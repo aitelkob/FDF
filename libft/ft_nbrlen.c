@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 04:45:05 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/04/04 22:48:17 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/04/19 14:10:59 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/19 19:31:55 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+size_t	ft_nbrlen(int n)
 {
-	unsigned char *str1;
-	unsigned char *str2;
+	size_t	i;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (n--)
+	i = 1;
+	if (n < 0)
 	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		else
-		{
-			str1++;
-			str2++;
-		}
+		n = -n;
+		if (n == -2147483648)
+			return (10);
 	}
-	return (0);
+	while (n >= 10)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
 }

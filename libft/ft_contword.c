@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_contword.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 04:45:05 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/04/04 22:48:17 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/04/19 15:25:09 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/19 19:10:42 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+size_t		ft_contword(char const *str, char c)
 {
-	unsigned char *str1;
-	unsigned char *str2;
+	size_t		i;
+	size_t		j;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	while (n--)
+	i = 0;
+	j = 0;
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		else
-		{
-			str1++;
-			str2++;
-		}
+		while (str[i] == c)
+			i++;
+		if ((i == 0 && str[i] != c) || (str[i] != c && str[i - 1] == c))
+			j++;
+		i++;
 	}
-	return (0);
+	return (j);
 }

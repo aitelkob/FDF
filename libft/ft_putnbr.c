@@ -3,51 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 21:58:11 by babdelka          #+#    #+#             */
-/*   Updated: 2019/04/22 03:07:02 by babdelka         ###   ########.fr       */
+/*   Created: 2019/04/06 22:38:03 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/08 02:52:26 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	*countr(long n, size_t *t)
+void	ft_putnbr(int n)
 {
-	t[0] = 1;
-	t[1] = 0;
-	while (n)
-	{
-		n = n / 10;
-		t[0] = t[0] * 10;
-		t[1]++;
-	}
-	t[0] /= 10;
-	return (t);
-}
+	unsigned int		nbr;
 
-void			ft_putnbr(int n)
-{
-	size_t	i[3];
-	long	nn;
-	long	r;
-
-	nn = (long)n;
-	i[2] = 0;
-	countr(nn, i);
-	if (nn < 0)
+	if (n < 0)
 	{
-		write(1, "-", 1);
-		nn = nn * -1;
+		ft_putchar('-');
+		nbr = n * -1;
 	}
-	if (nn == 0)
-		write(1, "0", 1);
-	while (i[2] < i[1])
-	{
-		r = nn / i[0] + 48;
-		write(1, &r, 1);
-		nn = nn % i[0];
-		i[0] = i[0] / 10;
-		i[2]++;
-	}
+	else
+		nbr = n;
+	if (nbr > 9)
+		ft_putnbr(nbr / 10);
+	ft_putchar(nbr % 10 + '0');
 }
