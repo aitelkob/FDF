@@ -6,17 +6,16 @@
 #    By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/12 02:58:50 by yait-el-          #+#    #+#              #
-#    Updated: 2019/10/13 12:02:46 by yait-el-         ###   ########.fr        #
+#    Updated: 2019/10/31 19:32:34 by yait-el-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-LIB = libft/libft.a \
-	  minilibx_macos/libmlx.a
+LIB = libft/libft.a 
 
-SRC = main.c
+SRC = main.c get_next_line.c 
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -25,11 +24,11 @@ $(NAME):$(OBJ)
 		@make -C ./libft
 	    @Make -C ./minilibx_macos
 		@echo "\033[92mdone!\033[0m"
-		$(CC) $(CFLAGS) $(OBJ) $(LIB) -framework OpenGL -framework AppKit  -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJ) $(LIB)  -o $(NAME)
 clean:
 		@echo "\033[94mcleaning..."
 		@Make clean -C ./libft
-		@Make clean -C ./minilibx_macos
+		#@Make clean -C ./minilibx_macos
 		rm -rf $(OBJ) 
 		@echo "\033[93mlibft and minilibx  object files removed!\033[0m"
 		@echo "\033[92mdone!\033[0m"

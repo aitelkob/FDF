@@ -5,139 +5,119 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 03:01:39 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/10/14 05:35:48 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/11/01 11:22:23 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
-/*static  void    init(t_mlibix *mlx)
+typedef  struct		s_tmp
 {
-	mlx->y = 0;
-	mlx->x = 0;
-	mlx->bonus.zoom = 0.5;
-	mlx->bonus.position_lr = 0;
-	mlx->bonus.altitude = 2;
-	mlx->bonus.parallel = 0;
-	mlx->bonus.position_ud = 0;
+	char	**tab;
+	char	**splited;
+	int		fd;
+}					t_tmp;
 
-}*/
-static	void		col_row(t_mlibix *mlx,t_stor	data){
-	while (data.stplit[mlx->y] != NULL )
-		mlx->y++;
-	if (mlx->y <= 1)
-	{
-		ft_putstr_fd("error\n",2);
-		exit(1);
-	}
-	mlx->tab = (int **)malloc(sizeof(int *) *mlx->y);
-	data.i= 0;
-	data.stp = ft_strsplit(data.stplit[1],' ');
-	while (data.stp[data.i])
-	{
-		free(data.stp[data.i]);
-		(data.i)++;
-		mlx->x++;
-	}
-	free(data.stp);
-	data.i = 0;
+typedef	 struct		s_mlix
+{
+	void	*ptr;
+	void	*win;
+	int		x;
+	int		y;
+	int		**tab;
+}					t_mlix;
+void	erreur(char	*str)
+{
+	ft_putendl_fd(str,2);
+	exit(1);
 }
 
-static void		ft_detect_ero(t_stor data)
+void	linescount(char	**argv,t_mlix *mlix)
 {
-	int i,j;
+	char	*line;
+	int		fd;
 
+	fd = open(*argv,O_RDONLY);
+	mlix->y = 0;
+	while (get_next_line(fd,&line)> 0)
+	{
+		mlix->y++;
+		free(line);
+	}
+}
+void	verify_filltab(t_tmp start,t_mlix *mlix)
+{
+	int		i;
+	int		j;
 	i = -1;
-	while (data.stplit[++i])
+	int	cpt = 0;
+	int	max= 0;
+	if (!(mlix->tab = (int **)malloc(sizeof(int *) * mlix->y)))
+		erreur("lay ne3ale zamel bouk ila matalokitiche mlix->tab");
+
+	while (++i < mlix->y)
 	{
-		if (ft_atoi(data.stp[i]) == 0)
-		{
-			j = -1;
-			while (data.stp[i][++j])
-				if (!(ft_isdigit(data.stp[i][j])) && data.stp[i][j] != '-')
-				{
-					ft_putstr_fd("error no numbers \n",2);
-					exit(0);
-				}
-		}
+		j = -1;
+		while (start.splited[cpt])
+			cpt++;
+		if (cpt > max)
+			max = cpt;
+		if (max != cpt)
+			erreur("file errore");
+		if (!(mlix->tab[i] = (int *)malloc(sizeof(int) * cpt)))
+			erreur("9lawi deyaltab 2D matallocatche ");
+		while (++j < cpt)
+			mlix->tab[i][j] = ft_atoi(start.splited[j]);
 	}
 }
-static void		store_tab(t_mlibix *mlx,t_stor data)
+void	store(char	**argv,t_mlix *mlix)
 {
-	while (data.i < mlx->y)
-	{
-		mlx->tab[data.i] = (int *)malloc(sizeof(int)* mlx->x);
-		data.stplit = ft_strsplit(data.stplit[data.i],' ');
-		free(data.stplit[data.i]);
-		data.i = -1;
-		ft_detect_ero(data);
-		while (data.stp[++(data.j)])
-		{
-			mlx->tab[data.i][data.j] = ft_atoi(data.stp[data.j]);
-			free(data.stp[data.j]);
-		}
-		free(data.stp);
-		(data.i)++;
+	t_tmp	start;
+	char	*line;
+	int		n;
 
+	//int		i= 0;
+	linescount(&argv[1],mlix);
+	if (!(start.tab = (char **)malloc(sizeof(char ) * (mlix->y))))
+		erreur("tamalek mamabireche te alloca");
+	n = 0;
+	start.fd = open(argv[1],O_RDONLY);
+	while (get_next_line(start.fd,&line) > 0)
+	{
+		start.tab[n] = ft_strdup(line);
+		//printf("%d._%s \n",n,start.tab[n]);
+		start.splited = ft_strsplit(start.tab[n],' ');
+		free(line);
+		n++;
 	}
-	free(data.stplit);
+	mlix->x = 0;
+	while (start.splited[mlix->x])
+		mlix->x++;
+	verify_filltab(start,mlix);
+	//free(start.splited);
+	/*int	i = 0;
+	  while (start.tab[i])
+	  {
+	  free(start.tab[i]);
+	  i++;
+	  }
+	  free(start.tab);*/
 }
-void	fdf_read(t_mlibix	*mlix,char	**argv)
+int main(int argc ,char	**argv)
 {
-	t_stor      data;
-	data.line = ft_strnew(0);
-	data.fd = open(argv[1],O_RDONLY);
-	printf("daze hena 1");
-	while ((data.ret= read(data.fd,data.buff,BUFF_SIZE)))
-	{
-		if(data.ret < 0)
-			exit(1);
-		data.buff[data.ret] = '\0';
-		data.tmp = ft_strjoin(data.line,data.buff);
-		free(data.line);
-		data.line = data.tmp;
+	t_mlix	*mlix;
 
-	}
-	data.stplit = ft_strsplit(data.line,'\n');
-	col_row(mlix, data);
-	store_tab(mlix, data); 
-}
-int main(int	argc,char	**argv)
-{
-	t_mlibix	*mlix;
-
-	if (argc != 2)
-	{
-		ft_putstr_fd("usage: ./fdf file\n",2);
-		return (0);
-	}
-	else
-	{
-		mlix =(t_mlibix*)malloc(sizeof(t_mlibix));
-		/*initialize the connection between your software and the display 
-		 * return a void* identifier
-		 * store it in mlx_ptr*/
-		(void)argv;
-		mlix->mlx_ptr = mlx_init();
-		fdf_read(mlix,argv);
-		if (mlix->x >= 200)
-			    mlix->mlx_win = mlx_new_window(mlix->mlx_ptr, ((200 * 500) / 35),
-						            ((200 * 200) / 13), "fdf");
-		else
-			    mlix->mlx_win = mlx_new_window(mlix->mlx_ptr, ((mlix->x * 500) / 35) * 2,
-						            ((mlix->y * 200) / 13) * 2, "fdf");
-		/*init(mlix);
-		fdf_read(mlix,argv);*/
-		/*mlix->x =100;
-		if (mlix->x >= 200)
-			mlix->mlx_win = mlx_new_window(mlix->mlx_ptr,((200 * 500)/ 35),((200 * 200) / 13),"fdf");
-		else
-			mlix->mlx_win = mlx_new_window(mlix->mlx_ptr, ((mlix->x * 500) / 35) * 2,
-					((mlix->y * 200) / 13) * 2, "fdf");*/
-		//mlix->mlx_win = mlx_new_window(mlix->mlx_ptr,1920,1080,"fdf");
-		//mlx_loop(mlix->mlx_ptr);
-	}
-	//mlx_loop(mlix->mlx_ptr);
-	return 0;
+	(void)argc;
+	//int		i = 0;
+	//int		n = 0;
+	//n = countlines(&argv[1]);
+	if (!(mlix = (t_mlix *)malloc(sizeof(t_mlix))))
+		erreur("start alloc not ok");
+	//linescount(&argv[1],mlix);
+	// printf("de5ale hena 1 \n");
+	store(argv,mlix);
+	free(mlix);
+	//printf("this is y == %d && this is x %d \n ",mlix->y,mlix->x);
 }

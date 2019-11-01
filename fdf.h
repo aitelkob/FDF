@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:58:34 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/10/14 04:57:23 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/10/30 18:21:16 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
-# include "libft/libft.h"
-# define BUFF_SIZE 32000
+#include "get_next_line.h"
+
+
 typedef struct      s_bonus
 {
 	double          zoom;

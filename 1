@@ -1,0 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/10/31 18:51:17 by yait-el-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+#include <stdio.h>
+
+typedef  struct		s_tmp
+{
+	char	**tab;
+	int		y;
+	int		x;
+	char	**splited;
+	int		fd;
+}					t_tmp;
+void	erreur(char	*str)
+{
+	ft_putendl_fd(str,2);
+	exit(1);
+}
+
+void	linescount(char	**argv,t_tmp *start)
+{
+	char	*line;
+	int		fd;	
+	fd = open(*argv,O_RDONLY);
+	while (get_next_line(fd,&line)> 0)
+	{
+		start->y++;
+		free(line);
+	}
+	close(fd);
+}
+void	store(t_tmp *start,char	**argv)
+{
+	char	*line;
+	int		n;
+
+	//printf("de5ale store \n");
+	if (!(start->tab = (char **)malloc(sizeof(char ) * start->y)))
+		erreur("tamalek mamabireche te alloca");
+	n = 0;
+	start->fd = open(argv[1],O_RDONLY);
+	while (get_next_line(start->fd,&line) > 0)
+	{
+		start->tab[n] = ft_strdup(line);
+		if (n == 0)
+			start->splited = ft_strsplit(start->tab[n],' ');
+		//printf("%d._ %s \n",n,start->tab[n]);
+		free(line);
+		n++;
+	}
+	start->x = 0;
+	while (start->splited[start->x])
+		start->x++;
+	ft_strdel(start->splited);
+	//printf("5erje hena \n");
+}
+int main(int argc ,char	**argv)
+{
+	t_tmp	*start;
+	(void)argc;
+	//int		n = 0;
+	//n = countlines(&argv[1]);
+	if (!(start = (t_tmp *)malloc(sizeof(t_tmp))))
+	  erreur("start alloc not ok");
+	linescount(&argv[1],start);
+	// printf("de5ale hena 1 \n");
+	 store(start,argv);
+	 //printf("this is y == %d && this is x %d \n ",start->y,start->x);
+	 ft_strdel(start->tab);
+	 free(start);
+}
