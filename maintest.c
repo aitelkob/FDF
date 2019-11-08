@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 03:01:39 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/10/30 05:24:14 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/04 13:20:24 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static	void		col_row(t_mlibix *mlx,t_stor	data)
 	{
 		ft_putstr_fd("error\n",2);
 		exit(1);
-	}
+	
 	if (!(mlx->tab = (int **)malloc(sizeof(int *) *mlx->y)))
 		error("mlx->tab alloc faille");
 	else

@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_contword.c                                      :+:      :+:    :+:   */
+/*   ft_countidigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 15:25:09 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/04/19 19:10:42 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/04/29 06:14:24 by babdelka          #+#    #+#             */
+/*   Updated: 2019/04/29 23:27:20 by babdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_contword(char const *str, char c)
+size_t	ft_countidigit(int s)
 {
-	size_t		i;
-	size_t		j;
+	size_t i;
 
-	i = 0;
-	j = 0;
-	if (!str)
-		return (0);
-	while (str[i])
+	if (s < 0)
 	{
-		while (str[i] == c)
-			i++;
-		if ((i == 0 && str[i] != c) || (str[i] != c && str[i - 1] == c))
-			j++;
+		i = 1;
+		i++;
+		s = s * -1;
+	}
+	else
+		i = 0;
+	while (s)
+	{
+		s = s / 10;
 		i++;
 	}
-	return (j);
+	return (i);
 }

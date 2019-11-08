@@ -6,118 +6,134 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/01 11:22:23 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/08 07:43:41 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
+#include "minilibx_macos/mlx.h"
 
-typedef  struct		s_tmp
+/*double	percent(int	start,int end,int current)
 {
-	char	**tab;
-	char	**splited;
-	int		fd;
-}					t_tmp;
+	double	placement;
+	double	distance;
 
-typedef	 struct		s_mlix
+	placement = current - start;
+	distance = end - start;
+	return ((distance == 0) ? 1.0 : (placement /distance));
+}
+int		get_color(t_drawing  drw,t_mlix *mlix)
 {
-	void	*ptr;
-	void	*win;
-	int		x;
-	int		y;
-	int		**tab;
-}					t_mlix;
-void	erreur(char	*str)
+	t_color color
+	int		red;
+	int		green;
+	int		blue;
+	double	percentage;
+	color.color_start = 0xff0000;
+
+	if (color.color_start == color.color_end)
+		return (color.color_end);
+	if (drw.dx > drw.dy)
+		percentage = percent(color.color_start,color.color_end,);
+}*/
+
+void	draw(t_mlix *mlix)
 {
-	ft_putendl_fd(str,2);
-	exit(1);
+	t_drawing  drw;
+	//// point 2 
+	mlix->xi = 50;
+	mlix->yi = 50;
+	int	clore = 0xff0000;
+	drw.m = 0;
+	drw.dx = mlix->xi - mlix->x;
+	drw.dy = mlix->yi - mlix->y;
+	drw.m = drw.dy/drw.dx;
+	mlx_pixel_put(mlix->ptr,mlix->win,50,50,0x0015ff);
+	 mlx_pixel_put(mlix->ptr,mlix->win,40,10,0x0015ff);
+	if (drw.dx > 0)
+		drw.stepx = 1;
+	else
+		drw.stepx = -1;
+	if (drw.dy > 0)
+		drw.stepy = 1;
+	else
+		drw.stepy = -1;
+	if (abs(drw.dx) > abs(drw.dy))
+		mlx_pixel_put(mlix->ptr,mlix->win,mlix->x,mlix->y,clore);
+	while (mlix->x < mlix->xi && mlix->y < mlix->yi)
+	{
+		mlix->x= mlix->x + drw.stepx;
+		drw.m = drw.m + abs(drw.dy);
+		if (drw.m >= abs(drw.dx))
+		{
+			mlix->y= mlix->y + drw.stepy;
+			drw.m = drw.m - drw.dx;
+		}
+		mlx_pixel_put(mlix->ptr,mlix->win,mlix->x,mlix->y,clore);
+	}
+	/*x = mlix->x;
+
+	while(x <= mlix->xi)
+	{
+		mlx_pixel_put(mlix->ptr,mlix->win,mlix->x,mlix->y,clore);
+		x = x + 1/drw.m;
+	}*/
+
+	//mlx_pixel_put(mlix->ptr,mlix->win,x2,y2,0x00040FF);
+}
+int key_press(int keycode,t_mlix *mlix)
+{
+
+	if (keycode == 124 )
+	{
+		mlix->x += 10;
+		mlix->xi +=10;
+	}
+	else if (keycode == 123)
+		mlix->x -= 10;
+	else if (keycode == 125 )
+	{
+		mlix->y += 10;
+		 mlix->yi +=10;
+	}
+	else if (keycode == 126 )
+		mlix->y -= 10;
+	else if (keycode == 53)
+		exit (0);
+	//mlx_clear_window(mlix->ptr,mlix->win);
+	draw(mlix);
+	return (0);
 }
 
-void	linescount(char	**argv,t_mlix *mlix)
+int     main(int ac, char **av)
 {
-	char	*line;
-	int		fd;
+	t_mlix  *mlix;
 
-	fd = open(*argv,O_RDONLY);
-	mlix->y = 0;
-	while (get_next_line(fd,&line)> 0)
-	{
-		mlix->y++;
-		free(line);
-	}
-}
-void	verify_filltab(t_tmp start,t_mlix *mlix)
-{
-	int		i;
-	int		j;
-	i = -1;
-	int	cpt = 0;
-	int	max= 0;
-	if (!(mlix->tab = (int **)malloc(sizeof(int *) * mlix->y)))
-		erreur("lay ne3ale zamel bouk ila matalokitiche mlix->tab");
-
-	while (++i < mlix->y)
-	{
-		j = -1;
-		while (start.splited[cpt])
-			cpt++;
-		if (cpt > max)
-			max = cpt;
-		if (max != cpt)
-			erreur("file errore");
-		if (!(mlix->tab[i] = (int *)malloc(sizeof(int) * cpt)))
-			erreur("9lawi deyaltab 2D matallocatche ");
-		while (++j < cpt)
-			mlix->tab[i][j] = ft_atoi(start.splited[j]);
-	}
-}
-void	store(char	**argv,t_mlix *mlix)
-{
-	t_tmp	start;
-	char	*line;
-	int		n;
-
-	//int		i= 0;
-	linescount(&argv[1],mlix);
-	if (!(start.tab = (char **)malloc(sizeof(char ) * (mlix->y))))
-		erreur("tamalek mamabireche te alloca");
-	n = 0;
-	start.fd = open(argv[1],O_RDONLY);
-	while (get_next_line(start.fd,&line) > 0)
-	{
-		start.tab[n] = ft_strdup(line);
-		//printf("%d._%s \n",n,start.tab[n]);
-		start.splited = ft_strsplit(start.tab[n],' ');
-		free(line);
-		n++;
-	}
-	mlix->x = 0;
-	while (start.splited[mlix->x])
-		mlix->x++;
-	verify_filltab(start,mlix);
-	//free(start.splited);
-	/*int	i = 0;
-	  while (start.tab[i])
+	if (!(mlix = (t_mlix*)malloc(sizeof(t_mlix))))
+		ft_erreur_fd("errrrrrrrrrrrrrrrore");
+	(void)ac;
+	(void)av;
+	//void *param;
+	//start(av,mlix);
+	//mlxstart();
+	mlix->ptr = mlx_init();
+	int	x = 2000;	
+	int	y = 1980;
+	/*int	ix = 100;
+	int	iy = 100;*/
+	mlix->x = 40;
+	mlix->y = 10;
+	mlix->win = mlx_new_window(mlix->ptr,x,y,"FDF");
+	/*while (s<1000)
 	  {
-	  free(start.tab[i]);
-	  i++;
-	  }
-	  free(start.tab);*/
-}
-int main(int argc ,char	**argv)
-{
-	t_mlix	*mlix;
-
-	(void)argc;
-	//int		i = 0;
-	//int		n = 0;
-	//n = countlines(&argv[1]);
-	if (!(mlix = (t_mlix *)malloc(sizeof(t_mlix))))
-		erreur("start alloc not ok");
-	//linescount(&argv[1],mlix);
-	// printf("de5ale hena 1 \n");
-	store(argv,mlix);
+	  mlx_pixel_put(mlix->ptr,mlix->win,s,s*o+60,0xfffFFF);
+	  r = 1 / o;
+	  s=s+r;
+	  }*/
+	draw(mlix);
+	mlx_hook(mlix->win,2 , 0 , key_press,mlix);
+	mlx_loop(mlix->ptr);
 	free(mlix);
-	//printf("this is y == %d && this is x %d \n ",mlix->y,mlix->x);
+	return(0);    
 }

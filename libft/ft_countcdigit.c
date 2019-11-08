@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   ft_countcdigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/22 21:14:06 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/04/22 21:20:13 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/04/29 05:59:24 by babdelka          #+#    #+#             */
+/*   Updated: 2019/04/29 23:28:56 by babdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrev(char *str)
+size_t	ft_countcdigit(char *str)
 {
-	int		i;
-	int		j;
-	char	temps;
+	size_t	i;
 
-	j = 0;
-	while (str[j] != '\0')
+	if (str[0] == '-')
 	{
-		j++;
-	}
-	j--;
-	i = 0;
-	while (i < j)
-	{
-		temps = str[i];
-		str[i] = str[j];
-		str[j] = temps;
+		i = 1;
 		i++;
-		j--;
 	}
-	return (str);
+	else
+		i = 0;
+	while (ft_isdigit(str[i]))
+		i++;
+	return (i);
 }

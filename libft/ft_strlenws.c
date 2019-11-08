@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
+/*   ft_strlenws.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/19 14:10:59 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/04/19 19:31:55 by yait-el-         ###   ########.fr       */
+/*   Created: 2019/04/09 23:42:53 by babdelka          #+#    #+#             */
+/*   Updated: 2019/04/10 08:34:16 by babdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_nbrlen(int n)
+size_t	ft_strlenws(const char *s)
 {
-	size_t	i;
+	size_t			i;
+	size_t			c;
+	unsigned char	*str;
 
-	i = 1;
-	if (n < 0)
+	i = 0;
+	c = 0;
+	str = (unsigned char *)s;
+	while (str[i])
 	{
-		n = -n;
-		if (n == -2147483648)
-			return (10);
-	}
-	while (n >= 10)
-	{
-		n = n / 10;
+		if (str[i] != ' ' || str[i] != '\n'
+				|| str[i] != '\t' || str[i] != '\v'
+				|| str[i] != '\r' || str[i] != '\f')
+			c++;
 		i++;
 	}
-	return (i);
+	return (c);
 }
