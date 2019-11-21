@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/20 12:14:35 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/21 09:02:18 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,28 @@
 
 void	resolution(t_mlix *mlix)
 {
-	if (mlix->x < 200)
+	 mlix->key.position_x = 0;
+	 mlix->key.position_y = 0;
+	 mlix->key.parallel = 0;
+	 mlix->key.retation_x = 0;
+
+	if (mlix->x == 100)
+	{
+		mlix->win_x = 1980;
+		mlix->win_y = 2000;
+		mlix->key.zoom = 5;
+
+	}
+	else if (mlix->x < 200)
 	{
 		mlix->win_x = (mlix->x * 70);
 		mlix->win_y = (mlix->y * 70);
 		mlix->key.zoom = 20;
 	}
-	else
+	else 
 	{
-		mlix->win_x = 1000;
-		mlix->win_y = 1000;
+		mlix->win_x = 1980;
+		mlix->win_y = 1100;
 		mlix->key.zoom = 1;
 	}
 }
@@ -63,7 +75,6 @@ void drawmenu(int x0, int y0, int x1, int y1, t_mlix *mlix)
 }
 void	menu(t_mlix		*mlix)
 {
-
 	int		win_x = (mlix->win_x - 100);
 	drawmenu(0,(mlix->win_y - 300),(mlix->win_x),(mlix->win_y - 300),mlix);
 	drawmenu(0,(mlix->win_y - 299),(mlix->win_x),(mlix->win_y - 299),mlix);
@@ -91,7 +102,6 @@ int     main(int ac, char **av)
 	resolution(mlix);
 	mlix->win = mlx_new_window(mlix->ptr,mlix->win_x,mlix->win_y,"FDF");
 	mlx_hook(mlix->win,2 , 0 , keyhooks,mlix);
-	initt(mlix);
 	map_drwing(mlix);
 	menu(mlix);
 	printf("this zoom value %f",mlix->key.zoom);

@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/15 07:21:52 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/21 08:41:35 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,16 @@ int		verify(char **tab,t_mlix *mlix)
 			return (0);
 		mlix->tab[verif.l] = (int *)malloc(sizeof(int) * verif.count);
 		while (++verif.i < verif.count)
+		{
 			mlix->tab[verif.l][verif.i] = ft_atoi(verif.splited[verif.i]);
+			free(verif.splited[verif.i]);
+		}
+		free(verif.splited);
 	}
+
 	mlix->x = verif.count;
-	//mlxstart(verif.ttab, verif.maxcount, lines);
-	return(0);
+	//ft_free_2D(verif.splited);
+	return 0;
 }
 
 char    **store(char **av, int lines)
@@ -46,7 +51,7 @@ char    **store(char **av, int lines)
 	data.i = 0;
 	data.n = 0;
 	if (!(data.tab = (char **)malloc(sizeof(char *) * lines)))
-		return (0);
+		ft_putstr_fd("error alocation \n", 2);
 	data.fd = open(*av, O_RDONLY);
 	while (get_next_line(data.fd, &data.line) > 0)
 	{
@@ -72,4 +77,5 @@ void		start(char **av,t_mlix *mlix)
 	close(fdf.fd);
 	fdf.tab = store(av, mlix->y);
 	verify(fdf.tab, mlix);
+	ft_free_2D(fdf.tab);
 }

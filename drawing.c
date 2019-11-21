@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 03:58:59 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/20 05:44:20 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/21 08:42:32 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,7 @@ void drawline(int x0, int y0, int x1, int y1, t_mlix *mlix, int z,int   k)
 	color.color_currenty = y0;
 	while (1)
 	{
-		mlx_pixel_put(mlix->ptr,mlix->win, (mlix->win_x/2) +x0-
-				(((mlix->x) * mlix->key.zoom) /2), (mlix->win_y/3)+y0 -
-				(((mlix->x)* mlix->key.zoom) / 3), 
-				color.color_start = (z==0 && k == 0 ?
-					(0xfffFFF + 0xff *mlix->key.color_h):
-					(0xCC0000 + 0xff * mlix->key.color_h)));
+		mlx_pixel_put(mlix->ptr,mlix->win, (int)((mlix->win_x/2) +x0- (((mlix->x) * mlix->key.zoom) /2))%(mlix->win_x),(int) ((mlix->win_y/3)+y0%(mlix->win_y) - (((mlix->x)* mlix->key.zoom) / 3))%mlix->win_y, color.color_start = (z==0 && k == 0 ?(0xfffFFF + 0xff *mlix->key.color_h):(0xCC0000 + 0xff * mlix->key.color_h)));
 		if (x0==x1 && y0==y1)
 			break;
 		dr.e2 = dr.err;
@@ -65,6 +60,8 @@ void    map_drwing(t_mlix *mlix)
 {
 	t_drw	drw;
 
+	/*drw.center_x = (mlix->win_x/2) - (((mlix->x) * mlix->key.zoom) /2);
+	drw.center_y = (mlix->win_y/2) - (((mlix->y) * mlix->key.zoom) /2);*/
 	drw.y = -1;
 	while (++(drw.y) < mlix->y)
 	{

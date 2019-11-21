@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:58:34 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/20 10:42:16 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/21 05:35:06 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdio.h>
 # include <math.h>
 #include "get_next_line.h"
-
 
 typedef struct      s_key
 {
@@ -116,8 +115,23 @@ typedef	struct		s_verify
 	int maxcount;
 }					t_verify;
 
+typedef struct      s_data
+{
+	int     fd;
+	char    buffer[BUFF_SIZE];
+	int     ret;
+	char    *line;
+	char    *tmp;
+	char    **splited_n;
+	int     index;
+	int     jndex;
+	char    **splited_spa;
+
+
+}                   t_data;
 void				drawline(int x0, int y0, int x1, int y1, t_mlix *mlix, int z,int   k);
 void				map_drwing(t_mlix *mlix);
+void                stor(t_mlix *mlix, char **argv);
 void				initt(t_mlix *mlix);
 int                 keyhooks(int key, t_mlix *mlix);
 int					verify(char **tab,t_mlix *mlix);

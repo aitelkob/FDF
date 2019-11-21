@@ -6,7 +6,7 @@
 #    By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/12 02:58:50 by yait-el-          #+#    #+#              #
-#    Updated: 2019/11/20 09:45:37 by yait-el-         ###   ########.fr        #
+#    Updated: 2019/11/21 05:59:15 by yait-el-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Werror -Wextra
 LIB = libft/libft.a  \
 		minilibx_macos/libmlx.a 
 INC = fdf.h libft/libft.h get_next_line.h
-SRC = main.c get_next_line.c read_fill_store.c keys.c drawing.c 
+SRC = main.c get_next_line.c read_fill_store.c keys.c drawing.c  
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME) 
