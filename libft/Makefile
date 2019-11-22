@@ -6,7 +6,7 @@
 #    By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/01 12:31:15 by yait-el-          #+#    #+#              #
-#    Updated: 2019/11/04 18:18:02 by yait-el-         ###   ########.fr        #
+#    Updated: 2019/11/22 11:22:26 by yait-el-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC = ft_atoi.c \
 	  ft_putstr_fd.c \
 	  ft_strcat.c \
 	  ft_strchr.c \
+	  ft_contword.c \
 	  ft_strclr.c \
 	  ft_strcmp.c \
 	  ft_strcpy.c \
@@ -69,6 +70,9 @@ SRC = ft_atoi.c \
 	  ft_toupper.c \
 	  ft_free_2D.c \
 	  ft_erreur_fd.c \
+	  ft_strsplittt.c \
+	  ft_whitespace.c \
+	  ft_isword.c \
 
 OBJECTS = $(SRC:%.c=%.o)
 

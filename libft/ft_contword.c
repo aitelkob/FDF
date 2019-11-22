@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_countcdigit.c                                   :+:      :+:    :+:   */
+/*   ft_contword.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/29 05:59:24 by babdelka          #+#    #+#             */
-/*   Updated: 2019/04/29 23:28:56 by babdelka         ###   ########.fr       */
+/*   Created: 2019/04/19 15:25:09 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/11/22 11:21:34 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_countcdigit(char *str)
+size_t		ft_contword(char const *str, char c)
 {
-	size_t	i;
+	size_t		i;
+	size_t		j;
 
-	if (str[0] == '-')
+	i = 0;
+	j = 0;
+	if (!str)
+		return (0);
+	while (str[i])
 	{
-		i = 1;
+		while (str[i] == c)
+			i++;
+		if ((i == 0 && str[i] != c) || (str[i] != c && str[i - 1] == c))
+			j++;
 		i++;
 	}
-	else
-		i = 0;
-	while (ft_isdigit(str[i]))
-		i++;
-	return (i);
+	return (j);
 }

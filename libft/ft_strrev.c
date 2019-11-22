@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlenws.c                                      :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 23:42:53 by babdelka          #+#    #+#             */
-/*   Updated: 2019/04/10 08:34:16 by babdelka         ###   ########.fr       */
+/*   Created: 2019/04/22 21:14:06 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/22 21:20:13 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlenws(const char *s)
+char	*ft_strrev(char *str)
 {
-	size_t			i;
-	size_t			c;
-	unsigned char	*str;
+	int		i;
+	int		j;
+	char	temps;
 
-	i = 0;
-	c = 0;
-	str = (unsigned char *)s;
-	while (str[i])
+	j = 0;
+	while (str[j] != '\0')
 	{
-		if (str[i] != ' ' || str[i] != '\n'
-				|| str[i] != '\t' || str[i] != '\v'
-				|| str[i] != '\r' || str[i] != '\f')
-			c++;
-		i++;
+		j++;
 	}
-	return (c);
+	j--;
+	i = 0;
+	while (i < j)
+	{
+		temps = str[i];
+		str[i] = str[j];
+		str[j] = temps;
+		i++;
+		j--;
+	}
+	return (str);
 }

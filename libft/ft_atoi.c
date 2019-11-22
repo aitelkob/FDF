@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babdelka <babdelka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 14:51:42 by babdelka          #+#    #+#             */
-/*   Updated: 2019/07/27 03:32:07 by babdelka         ###   ########.fr       */
+/*   Created: 2019/04/02 05:31:06 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/20 03:30:59 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 int		ft_atoi(const char *str)
 {
-	long	total;
-	long	sign;
-	long	i;
+	size_t		i;
+	int			sign;
+	int			nb;
 
+	nb = 0;
 	sign = 1;
-	total = 0;
 	i = 0;
-	while (str[i] == ' ' || str[i] == '\n'
-			|| str[i] == '\t' || str[i] == '\v'
-			|| str[i] == '\r' || str[i] == '\f')
-	{
+	while (ft_whitespace(str[i]))
 		i++;
-	}
-	if (str[i] == '-')
-		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] && str[i] > 47 && str[i] < 58)
 	{
-		total = total * 10 + str[i] - '0';
+		if (str[i] == '-')
+			sign = -1;
 		i++;
 	}
-	return (total * sign);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	return (nb * sign);
 }

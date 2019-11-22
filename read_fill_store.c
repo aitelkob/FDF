@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/21 08:41:35 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:20:29 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int		verify(char **tab,t_mlix *mlix)
 {
 	t_verify	verif;
 
+	verif.mincount = 0;
 	verif.maxcount = 0;
+	verif.line_one = 0;
 	verif.l = -1;
 	mlix->tab = (int **)malloc(sizeof(int *) * mlix->y);
 	while (++verif.l < mlix->y)
@@ -26,10 +28,13 @@ int		verify(char **tab,t_mlix *mlix)
 		verif.count = 0;
 		while (verif.splited[verif.count])
 			verif.count++;
-		if (verif.count > verif.maxcount)
-			verif.maxcount = verif.count;
-		if (verif.maxcount != verif.count)
-			return (0);
+		if (verif.maxcount == 0)
+		{
+			verif.maxcount = 1;
+			verif.line_one =verif.count;
+		}
+		if (verif.line_one >  verif.count )
+			ft_erreur_fd("Found wrong line length. Exiting.");
 		mlix->tab[verif.l] = (int *)malloc(sizeof(int) * verif.count);
 		while (++verif.i < verif.count)
 		{
@@ -38,9 +43,7 @@ int		verify(char **tab,t_mlix *mlix)
 		}
 		free(verif.splited);
 	}
-
 	mlix->x = verif.count;
-	//ft_free_2D(verif.splited);
 	return 0;
 }
 
@@ -75,7 +78,5 @@ void		start(char **av,t_mlix *mlix)
 		free(fdf.line);
 	}
 	close(fdf.fd);
-	fdf.tab = store(av, mlix->y);
-	verify(fdf.tab, mlix);
-	ft_free_2D(fdf.tab);
+	verify(store(av, mlix->y), mlix);
 }

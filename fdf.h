@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:58:34 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/21 05:35:06 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:18:14 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ typedef	struct		s_verify
 	char **splited;
 	int count;
 	int maxcount;
+	int	mincount;
+	int	line_one;
 }					t_verify;
 
 typedef struct      s_data
@@ -129,6 +131,7 @@ typedef struct      s_data
 
 
 }                   t_data;
+void				menu(t_mlix     *mlix);
 void				drawline(int x0, int y0, int x1, int y1, t_mlix *mlix, int z,int   k);
 void				map_drwing(t_mlix *mlix);
 void                stor(t_mlix *mlix, char **argv);

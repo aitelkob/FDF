@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 03:12:27 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/21 09:00:46 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:08:00 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 static  void        keypart(int key, t_mlix *mlix)
 {
-
+	int		index;
+	index = -1;
 	if (key == 53)
 	{
-		free(mlix);
+		while (++index < mlix->y)
+			free(mlix->tab[index]);
+		free(mlix->tab);
 		exit(0);
 	}
 	else if(key == 49)
@@ -53,6 +56,7 @@ int                 keyhooks(int key, t_mlix *mlix)
 		mlix->key.parallel = 0;
 	mlx_clear_window(mlix->ptr, mlix->win);
 	map_drwing(mlix);
+	menu(mlix);
 	return (0);
 
 }

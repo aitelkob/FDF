@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_countidigit.c                                   :+:      :+:    :+:   */
+/*   ft_isword.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: babdelka <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/29 06:14:24 by babdelka          #+#    #+#             */
-/*   Updated: 2019/04/29 23:27:20 by babdelka         ###   ########.fr       */
+/*   Created: 2019/04/19 15:07:53 by yait-el-          #+#    #+#             */
+/*   Updated: 2019/04/19 15:15:51 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_countidigit(int s)
+int		ft_isword(char	const *s, size_t i, char c)
 {
-	size_t i;
-
-	if (s < 0)
-	{
-		i = 1;
-		i++;
-		s = s * -1;
-	}
-	else
-		i = 0;
-	while (s)
-	{
-		s = s / 10;
-		i++;
-	}
-	return (i);
+	if (i == 0 && s[i] != c)
+		return (1);
+	if (s[i] != c && s[i - 1] == c)
+		return (1);
+	return (0);
 }
