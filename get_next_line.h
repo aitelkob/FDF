@@ -6,13 +6,13 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 08:43:21 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/22 06:21:43 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/23 05:33:37 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 100
+# define BUFF_SIZE 32000
 # define FD_SIZE 4863
 
 # include <fcntl.h>

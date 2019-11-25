@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 09:52:16 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/16 19:32:26 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/23 15:45:35 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ static char		*ft_line_new(char *s, char **line)
 	int		i;
 	char	*rst;
 
+	rst = NULL;
 	i = 0;
 	while (s[i] && s[i] != '\n')
 		i++;
 	*line = ft_strsub(s, 0, i);
 	if (s[i] == '\n')
-		rst = ft_strdup(&s[i] + 1);
+		rst = ft_strdup(s + i + 1);
 	if (!s[i])
 		rst = ft_strnew(0);
 	return (rst);

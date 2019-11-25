@@ -6,12 +6,13 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:40:33 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/22 16:20:29 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:14:01 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+///////// 42 line 
 int		verify(char **tab,t_mlix *mlix)
 {
 	t_verify	verif;
@@ -44,6 +45,16 @@ int		verify(char **tab,t_mlix *mlix)
 		free(verif.splited);
 	}
 	mlix->x = verif.count;
+	//int	fd;
+	int		i = 0;
+	while (tab[i])
+	{
+		//dprintf((fd = open("/dev/ttys001", O_WRONLY)), "%p\n", tab[i]);
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	//close(fd);
 	return 0;
 }
 
@@ -53,7 +64,7 @@ char    **store(char **av, int lines)
 
 	data.i = 0;
 	data.n = 0;
-	if (!(data.tab = (char **)malloc(sizeof(char *) * lines)))
+	if (!(data.tab = (char **)malloc(sizeof(char *) * (lines + 1))))
 		ft_putstr_fd("error alocation \n", 2);
 	data.fd = open(*av, O_RDONLY);
 	while (get_next_line(data.fd, &data.line) > 0)
@@ -62,6 +73,7 @@ char    **store(char **av, int lines)
 		free(data.line);
 		data.n++;
 	}
+	data.tab[data.n] = NULL;
 	close(data.fd);
 	return (data.tab);
 }
@@ -78,5 +90,6 @@ void		start(char **av,t_mlix *mlix)
 		free(fdf.line);
 	}
 	close(fdf.fd);
-	verify(store(av, mlix->y), mlix);
+	fdf.tab= store(av,mlix->y);
+	verify(fdf.tab, mlix);
 }

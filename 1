@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 03:58:59 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/25 17:34:37 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/25 13:47:13 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static void        iso(int *x, int *y, int z,t_mlix *mlix)
 void	imageput(t_mlix *mlix,int x,int	y,int	color)
 {
 	int i;
-	if (x >= 0 && x <= mlix->win_x && y >=0 && y <= (mlix->win_y))
+	if (x >= 0 && x <= mlix->win_x && y >=0 && y <= mlix->win_y)
 	{
 		int	fd;
 		i = (x * mlix->bits_per_pixel / 8) + (y * mlix->size_line);
-		dprintf((fd = open("/dev/ttys000",O_WRONLY)),"index=%d --- mlix->bits_per_pixel=%d -- mlix->size_line=%d -- (px%d==wx%d) (py%d=wy%d) \n",i,mlix->bits_per_pixel,mlix->size_line,x,mlix->win_x,y,mlix->win_y);
+		dprintf((fd = open("/dev/ttys003",O_WRONLY)),"index=%d --- mlix->bits_per_pixel=%d -- mlix->size_line=%d -- (px%d==wx%d) (py%d=wy%d) \n",i,mlix->bits_per_pixel,mlix->size_line,x,mlix->win_x,y,mlix->win_y);
 		mlix->img[i] = color; // B — Blue
 		mlix->img[++i] = color >> 8; // G — Green
 		mlix->img[++i] = color >> 16; // R — Red
@@ -52,7 +52,7 @@ void drawline(int x0, int y0, int x1, int y1, t_mlix *mlix, int z,int   k)
 	color.color_currenty = y0;
 	while (1)
 	{
-		imageput(mlix, (int)((mlix->win_x/2) +x0- (((mlix->x) * mlix->key.zoom) /2)),(int) ((mlix->win_y/3)+y0- (((mlix->x)* mlix->key.zoom) / 3)), color.color_start = (z==0 && k == 0 ?(0xfffFFF + 0xff *mlix->key.color_h):(0xCC0000 + 0xff * mlix->key.color_h)));
+		imageput(mlix, (int)((mlix->win_x/2) +x0- (((mlix->x) * mlix->key.zoom) /2))%(mlix->win_x),(int) ((mlix->win_y/3)+y0%(mlix->win_y) - (((mlix->x)* mlix->key.zoom) / 3))%mlix->win_y, color.color_start = (z==0 && k == 0 ?(0xfffFFF + 0xff *mlix->key.color_h):(0xCC0000 + 0xff * mlix->key.color_h)));
 		if (x0==x1 && y0==y1)
 			break;
 		dr.e2 = dr.err;

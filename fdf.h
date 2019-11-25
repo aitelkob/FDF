@@ -6,7 +6,7 @@
 /*   By: yait-el- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:58:34 by yait-el-          #+#    #+#             */
-/*   Updated: 2019/11/22 16:18:14 by yait-el-         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:00:51 by yait-el-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct      s_key
 	double          retation_y;
 	double			color_h;
 	double			color_l;
+	int				menu;
 }                   t_key;
 
 typedef struct		s_drline
@@ -80,6 +81,12 @@ typedef  struct     s_mlix
 {
 	void    *ptr;
 	void    *win;
+	void	*imgptr;
+	char	*img;
+	char	*data_addr;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 	int		win_x;
 	int		win_y;
 	int     x ,xi;
@@ -140,5 +147,6 @@ int                 keyhooks(int key, t_mlix *mlix);
 int					verify(char **tab,t_mlix *mlix);
 char				**store(char **av, int lines);
 void				start(char **av,t_mlix *mlix);
+void				imageput(t_mlix *mlix,int x,int y,int color);
 
 #endif
